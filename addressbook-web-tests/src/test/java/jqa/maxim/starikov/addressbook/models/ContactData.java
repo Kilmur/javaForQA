@@ -1,4 +1,4 @@
-package jqa.maxim.starikov.addressbook;
+package jqa.maxim.starikov.addressbook.models;
 
 public class ContactData {
   private final String name;
