@@ -3,20 +3,16 @@ package jqa.maxim.starikov.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class NavigationHelper {
-
-  private WebDriver wd;
+public class NavigationHelper extends BaseHelper {
 
   public NavigationHelper(WebDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   // метод сохранения заполненной формы
   public void submitCreation() {
-    wd.findElement(By.name("submit")).click();
+    click(By.name("submit"));
   }
 
-  public void clickOnButton(String s) {
-    wd.findElement(By.linkText(s)).click();
-  }
+
 }
