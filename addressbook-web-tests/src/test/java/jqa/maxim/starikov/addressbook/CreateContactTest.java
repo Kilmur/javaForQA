@@ -9,7 +9,7 @@ public class CreateContactTest {
 
   private WebDriver driver;
 
-  @BeforeClass(alwaysRun = true)
+  @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -60,7 +60,7 @@ public class CreateContactTest {
     driver.findElement(By.linkText(s)).click();
   }
 
-  @AfterClass(alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
     driver.quit();
   }
