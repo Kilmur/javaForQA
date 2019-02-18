@@ -19,4 +19,15 @@ public class GroupHelper extends BaseHelper {
   public void initGroupCreation() {
     click(By.name("new"));
   }
+
+  public void clickEdit() {
+    click(By.name("edit"));
+  }
+
+  public void clickDelete() {
+    click(By.name("delete"));
+  }
+
+
+
 }

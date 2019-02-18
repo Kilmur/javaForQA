@@ -14,5 +14,19 @@ public class NavigationHelper extends BaseHelper {
     click(By.name("submit"));
   }
 
+  public void goToPage(String title) {
+    click(By.linkText(title));
+  }
+
+  // выбрать запись
+  public void selectItem() {
+    click(By.name("selected[]"));
+  }
+
+  // сохранение после модификации записи
+  public void clickUpdate() {
+    click(By.name("update"));
+  }
+
 
 }

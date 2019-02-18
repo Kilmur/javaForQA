@@ -17,4 +17,12 @@ public class ContactHelper extends BaseHelper {
     fillField(By.name("email"), contactData.getEmail());
     fillField(By.name("mobile"), contactData.getPhone());;
   }
+
+  public void clickEdit() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void clickDelete() {
+    click(By.xpath("//input[@value='Delete']"));
+  }
 }
