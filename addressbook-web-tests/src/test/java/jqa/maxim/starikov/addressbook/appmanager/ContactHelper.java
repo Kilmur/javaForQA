@@ -25,4 +25,15 @@ public class ContactHelper extends BaseHelper {
   public void clickDelete() {
     click(By.xpath("//input[@value='Delete']"));
   }
+
+  public void createContact(ContactData group) {
+    click(By.linkText("add new"));
+    fillContactForm(group);
+    submitCreation();
+    goToPage("home");
+  }
+
+  public boolean isThereContact() {
+    return isElementPresent(By.name("selected[]"));
+  }
 }

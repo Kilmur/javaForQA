@@ -28,6 +28,15 @@ public class GroupHelper extends BaseHelper {
     click(By.name("delete"));
   }
 
+  public void createGroup(GroupData group) {
+    initGroupCreation();
+    fillGroupForm(group);
+    submitCreation();
+    goToPage("groups");
+  }
 
 
+  public boolean isThereGroup() {
+    return isElementPresent(By.name("selected[]"));
+  }
 }
