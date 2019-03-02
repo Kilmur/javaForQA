@@ -3,6 +3,10 @@ package jqa.maxim.starikov.addressbook.appmanager;
 import jqa.maxim.starikov.addressbook.models.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
 
@@ -39,5 +43,16 @@ public class ContactHelper extends BaseHelper {
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements) {
+      String[] fieldsContact = element.getText().split(" ");
+      ContactData contact = new ContactData(fieldsContact[1], fieldsContact[0], fieldsContact[2], fieldsContact[3], fieldsContact[4]);
+      contacts.add(contact);
+    }
+    return contacts;
   }
 }
