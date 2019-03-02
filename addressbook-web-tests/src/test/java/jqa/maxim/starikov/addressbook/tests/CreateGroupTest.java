@@ -1,6 +1,7 @@
 package jqa.maxim.starikov.addressbook.tests;
 
 import jqa.maxim.starikov.addressbook.models.GroupData;;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 public class CreateGroupTest extends TestBase {
@@ -8,7 +9,10 @@ public class CreateGroupTest extends TestBase {
   @Test
   public void testCreateGroup() throws Exception {
     app.getGroupHelper().goToPage("groups");
+    int before = app.getGroupHelper().getGroupCount();
     app.getGroupHelper().createGroup(new GroupData("Группа 1", "группа1", "группа-1"));
+    int after = app.getGroupHelper().getGroupCount();
+    Assert.assertEquals(after, before + 1);
   }
 
 

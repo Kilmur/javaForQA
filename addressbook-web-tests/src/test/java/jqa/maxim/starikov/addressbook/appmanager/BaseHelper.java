@@ -47,8 +47,8 @@ public class BaseHelper {
   }
 
   // выбрать запись
-  public void selectItem() {
-    click(By.name("selected[]"));
+  public void selectItem(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void goToPage(String title) {
