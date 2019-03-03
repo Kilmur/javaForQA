@@ -3,7 +3,7 @@ package jqa.maxim.starikov.addressbook.models;
 import java.util.Objects;
 
 public class ContactData {
-  private final String id;
+  private int id;
   private final String name;
   private final String lastname;
   private final String address;
@@ -11,7 +11,7 @@ public class ContactData {
   private final String phone;
 
   public ContactData(String name, String lastname, String address, String email, String phone) {
-    this.id = null;
+    this.id = 0;
     this.name = name;
     this.lastname = lastname;
     this.address = address;
@@ -19,7 +19,7 @@ public class ContactData {
     this.phone = phone;
   }
 
-  public ContactData(String id, String name, String lastname, String address, String email, String phone) {
+  public ContactData(int id, String name, String lastname, String address, String email, String phone) {
     this.id = id;
     this.name = name;
     this.lastname = lastname;
@@ -28,7 +28,7 @@ public class ContactData {
     this.phone = phone;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
@@ -50,6 +50,10 @@ public class ContactData {
 
   public String getPhone() {
     return phone;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override
