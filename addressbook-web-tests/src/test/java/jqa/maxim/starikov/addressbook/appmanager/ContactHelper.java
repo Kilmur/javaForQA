@@ -22,8 +22,9 @@ public class ContactHelper extends BaseHelper {
     fillField(By.name("mobile"), contactData.getPhone());;
   }
 
-  public void clickEdit() {
-    click(By.xpath("//img[@alt='Edit']"));
+  public void clickEdit(int row) {
+    String path = "(//img[@alt='Edit'])[" + row + "]";
+    click(By.xpath(path));
   }
 
   public void clickDelete() {
@@ -49,8 +50,10 @@ public class ContactHelper extends BaseHelper {
     List<ContactData> contacts = new ArrayList<>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
-      String[] fieldsContact = element.getText().split(" ");
-      ContactData contact = new ContactData(fieldsContact[1], fieldsContact[0], fieldsContact[2], fieldsContact[3], fieldsContact[4]);
+      String lastName = element.findElement(By.xpath(".//td[2]")).getText();
+      String firstName = element.findElement(By.xpath(".//td[3]")).getText();
+      String id = element.findElement(By.tagName("input")).getAttribute("value");
+      ContactData contact = new ContactData(id, firstName, lastName, null, null, null);
       contacts.add(contact);
     }
     return contacts;
