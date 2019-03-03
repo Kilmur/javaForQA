@@ -4,6 +4,7 @@ import jqa.maxim.starikov.addressbook.models.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ModificationGroupTest extends TestBase {
@@ -17,11 +18,16 @@ public class ModificationGroupTest extends TestBase {
     List<GroupData> before = app.getGroupHelper().getGroupList();
     app.getNavigationHelper().selectItem(before.size() - 1);
     app.getGroupHelper().clickEdit();
-    app.getGroupHelper().fillGroupForm(new GroupData("Измененная группа", "новый хедер ", "новый футер"));
+    GroupData newGroup = new GroupData(before.get(before.size() - 1).getId(),"Измененная группа", "новый хедер ", "новый футер");
+    app.getGroupHelper().fillGroupForm(newGroup);
     app.getNavigationHelper().clickUpdate();
     app.getNavigationHelper().goToPage("groups");
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size());
+
+    before.remove(before.size() - 1);
+    before.add(newGroup);
+    Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
 
   }
 }
