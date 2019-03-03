@@ -4,7 +4,7 @@ import jqa.maxim.starikov.addressbook.models.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 
 public class ModificationContactTest extends TestBase {
@@ -16,7 +16,6 @@ public class ModificationContactTest extends TestBase {
       app.getContactHelper().createContact(new ContactData("Ivan", "Ivanov", null, null, null));
     }
     List<ContactData> before = app.getContactHelper().getContactList();
-    System.out.println("BEFORE SIZE - " + before.size());
     app.getNavigationHelper().selectItem(before.size() - 1);
     app.getContactHelper().clickEdit(before.size());
     ContactData newContact = new ContactData(before.get(before.size() - 1).getId(), "Petr", "Ivanov", null, null, null);
@@ -28,6 +27,11 @@ public class ModificationContactTest extends TestBase {
 
     before.remove(before.size() - 1);
     before.add(newContact);
-    Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
+
+    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
+    before.sort(byId);
+    after.sort(byId);
+
+    Assert.assertEquals(after, before);
   }
 }

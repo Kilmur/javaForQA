@@ -3,6 +3,7 @@ package jqa.maxim.starikov.addressbook.models;
 import java.util.Objects;
 
 public class ContactData {
+
   private int id;
   private final String name;
   private final String lastname;
@@ -10,8 +11,9 @@ public class ContactData {
   private final String email;
   private final String phone;
 
+
   public ContactData(String name, String lastname, String address, String email, String phone) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.name = name;
     this.lastname = lastname;
     this.address = address;
@@ -70,13 +72,13 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(id, that.id) &&
-      Objects.equals(name, that.name) &&
+    return Objects.equals(name, that.name) &&
       Objects.equals(lastname, that.lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, lastname);
+    return Objects.hash(name, lastname);
   }
+
 }

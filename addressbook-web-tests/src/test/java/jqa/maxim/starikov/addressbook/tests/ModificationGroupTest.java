@@ -4,7 +4,7 @@ import jqa.maxim.starikov.addressbook.models.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 
 public class ModificationGroupTest extends TestBase {
@@ -27,7 +27,12 @@ public class ModificationGroupTest extends TestBase {
 
     before.remove(before.size() - 1);
     before.add(newGroup);
-    Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
+
+    Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
+    before.sort(byId);
+    after.sort(byId);
+
+    Assert.assertEquals(after, before);
 
   }
 }
