@@ -11,6 +11,14 @@ public class ContactData {
   private final String email;
   private final String phone;
 
+  public ContactData(int id, String name, String lastname) {
+    this.id = id;
+    this.name = name;
+    this.lastname = lastname;
+    this.address = null;
+    this.email = null;
+    this.phone = null;
+  }
 
   public ContactData(String name, String lastname, String address, String email, String phone) {
     this.id = Integer.MAX_VALUE;
