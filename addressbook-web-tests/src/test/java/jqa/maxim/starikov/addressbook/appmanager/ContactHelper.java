@@ -46,6 +46,13 @@ public class ContactHelper extends BaseHelper {
     goToPage("home");
   }
 
+  public void deleteContact(int index) {
+    selectItem(index);
+    clickDelete();
+    getWD().switchTo().alert().accept();
+    goToPage("home");
+  }
+
   public boolean isThereContact() {
     return isElementPresent(By.name("selected[]"));
   }
@@ -61,8 +68,7 @@ public class ContactHelper extends BaseHelper {
       String lastName = element.findElement(By.xpath(".//td[2]")).getText();
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id, firstName, lastName);
-      contacts.add(contact);
+      contacts.add(new ContactData().withId(id).withName(firstName).withLastname(lastName));
     }
     return contacts;
   }

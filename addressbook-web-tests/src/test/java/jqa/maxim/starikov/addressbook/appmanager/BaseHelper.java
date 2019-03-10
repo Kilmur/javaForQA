@@ -64,4 +64,8 @@ public class BaseHelper {
   public void clickUpdate() {
     click(By.name("update"));
   }
+
+  public WebDriver getWD() {
+    return wd;
+  }
 }

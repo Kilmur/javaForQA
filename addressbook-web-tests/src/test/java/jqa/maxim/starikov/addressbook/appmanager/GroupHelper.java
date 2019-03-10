@@ -47,6 +47,12 @@ public class GroupHelper extends BaseHelper {
     goToPage("groups");
   }
 
+  public void deleteGroup(int index) {
+    selectItem(index);
+    clickDelete();
+    goToPage("groups");
+  }
+
 
   public boolean isThereGroup() {
     return isElementPresent(By.name("selected[]"));
@@ -62,8 +68,7 @@ public class GroupHelper extends BaseHelper {
     for (WebElement element : elements) {
       String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      GroupData group = new GroupData(id, name, null, null);
-      groups.add(group);
+      groups.add(new GroupData().withId(id).withName(name));
     }
     return groups;
   }
