@@ -9,10 +9,5 @@ public class NavigationHelper extends BaseHelper {
     super(wd);
   }
 
-  // сохранение после модификации записи
-  public void clickUpdate() {
-    click(By.name("update"));
-  }
-
 
 }

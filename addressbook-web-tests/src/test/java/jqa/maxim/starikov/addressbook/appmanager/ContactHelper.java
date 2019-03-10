@@ -38,6 +38,14 @@ public class ContactHelper extends BaseHelper {
     goToPage("home");
   }
 
+  public void modifyContact(int index, ContactData newContact) {
+    selectItem(index);
+    clickEdit(index + 1);
+    fillContactForm(newContact);
+    clickUpdate();
+    goToPage("home");
+  }
+
   public boolean isThereContact() {
     return isElementPresent(By.name("selected[]"));
   }

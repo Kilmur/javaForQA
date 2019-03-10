@@ -59,4 +59,9 @@ public class BaseHelper {
   public void submitCreation() {
     click(By.name("submit"));
   }
+
+  // сохранение после модификации записи
+  public void clickUpdate() {
+    click(By.name("update"));
+  }
 }
