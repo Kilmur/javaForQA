@@ -5,8 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends BaseHelper {
 
@@ -22,9 +23,9 @@ public class ContactHelper extends BaseHelper {
     fillField(By.name("mobile"), contactData.getPhone());;
   }
 
-  public void clickEdit(int row) {
-    String path = "(//img[@alt='Edit'])[" + row + "]";
-    click(By.xpath(path));
+  public void clickEdit(int id) {
+    WebElement element = wd.findElement(By.cssSelector("input[id='" + id + "']"));
+    element.findElement(By.xpath("./../following-sibling::td[7]//img")).click();
   }
 
   public void clickDelete() {
@@ -38,16 +39,16 @@ public class ContactHelper extends BaseHelper {
     goToPage("home");
   }
 
-  public void modifyContact(int index, ContactData newContact) {
-    selectItem(index);
-    clickEdit(index + 1);
-    fillContactForm(newContact);
+  public void modifyContact(ContactData contact) {
+    selectItemById(contact.getId());
+    clickEdit(contact.getId());
+    fillContactForm(contact);
     clickUpdate();
     goToPage("home");
   }
 
-  public void deleteContact(int index) {
-    selectItem(index);
+  public void deleteContact(ContactData contact) {
+    selectItemById(contact.getId());
     clickDelete();
     getWD().switchTo().alert().accept();
     goToPage("home");
@@ -61,8 +62,9 @@ public class ContactHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> getContactList() {
-    List<ContactData> contacts = new ArrayList<>();
+
+  public Set<ContactData> getContactSet() {
+    Set<ContactData> contacts = new HashSet<>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String lastName = element.findElement(By.xpath(".//td[2]")).getText();

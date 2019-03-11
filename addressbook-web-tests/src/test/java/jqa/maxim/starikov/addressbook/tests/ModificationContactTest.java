@@ -4,9 +4,7 @@ import jqa.maxim.starikov.addressbook.models.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class ModificationContactTest extends TestBase {
 
@@ -20,20 +18,15 @@ public class ModificationContactTest extends TestBase {
 
   @Test
   public void testModificationContact() {
-    List<ContactData> before = app.getContactHelper().getContactList();
-    int index = before.size() - 1;
-    ContactData newContact = new ContactData().withId(before.get(index).getId()).withName("Petr").withLastname("Ivanov");
-    app.getContactHelper().modifyContact(index, newContact);
-    List<ContactData> after = app.getContactHelper().getContactList();
+    Set<ContactData> before = app.getContactHelper().getContactSet();
+    ContactData modifiedContact = before.iterator().next();
+    ContactData newContact = new ContactData().withId(modifiedContact.getId()).withName("Petr").withLastname("Ivanov");
+    app.getContactHelper().modifyContact(newContact);
+    Set<ContactData> after = app.getContactHelper().getContactSet();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(index);
+    before.remove(modifiedContact);
     before.add(newContact);
-
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
-
     Assert.assertEquals(after, before);
   }
 

@@ -5,8 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class ModificationGroupTest extends TestBase {
 
@@ -20,20 +19,15 @@ public class ModificationGroupTest extends TestBase {
 
   @Test
   public void testModificationGroup() {
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    int index = before.size() - 1;
-    GroupData newGroup = new GroupData().withId(before.get(index).getId()).withName("Измененная группа").withHeader("новый хедер").withFooter("новый футер");
-    app.getGroupHelper().modifyGroup(index, newGroup);
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    Set<GroupData> before = app.getGroupHelper().getGroupSet();
+    GroupData modifiedGroup = before.iterator().next();
+    GroupData newGroup = new GroupData().withId(modifiedGroup.getId()).withName("Измененная группа").withHeader("новый хедер").withFooter("новый футер");
+    app.getGroupHelper().modifyGroup(newGroup);
+    Set<GroupData> after = app.getGroupHelper().getGroupSet();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(index);
+    before.remove(modifiedGroup);
     before.add(newGroup);
-
-    Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
-    before.sort(byId);
-    after.sort(byId);
-
     Assert.assertEquals(after, before);
 
   }

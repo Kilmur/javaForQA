@@ -4,8 +4,7 @@ import jqa.maxim.starikov.addressbook.models.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.List;
+import java.util.Set;
 
 public class DeleteGroupTest extends TestBase {
 
@@ -19,13 +18,13 @@ public class DeleteGroupTest extends TestBase {
 
   @Test
   public void testDeleteGroup() {
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    int index = before.size() - 1;
-    app.getGroupHelper().deleteGroup(index);
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    Set<GroupData> before = app.getGroupHelper().getGroupSet();
+    GroupData deletedGroup = before.iterator().next();
+    app.getGroupHelper().deleteGroup(deletedGroup);
+    Set<GroupData> after = app.getGroupHelper().getGroupSet();
     Assert.assertEquals(after.size(), before.size() - 1);
 
-    before.remove(index);
+    before.remove(deletedGroup);
     Assert.assertEquals(before, after);
 
   }

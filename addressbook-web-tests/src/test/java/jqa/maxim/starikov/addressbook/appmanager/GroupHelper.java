@@ -5,8 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends BaseHelper {
 
@@ -39,16 +40,16 @@ public class GroupHelper extends BaseHelper {
     goToPage("groups");
   }
 
-  public void modifyGroup(int index, GroupData newGroup) {
-    selectItem(index);
+  public void modifyGroup(GroupData group) {
+    selectItemById(group.getId());
     clickEdit();
-    fillGroupForm(newGroup);
+    fillGroupForm(group);
     clickUpdate();
     goToPage("groups");
   }
 
-  public void deleteGroup(int index) {
-    selectItem(index);
+  public void deleteGroup(GroupData group) {
+    selectItemById(group.getId());
     clickDelete();
     goToPage("groups");
   }
@@ -62,8 +63,9 @@ public class GroupHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<GroupData> getGroupList() {
-    List<GroupData> groups = new ArrayList<>();
+
+  public Set<GroupData> getGroupSet() {
+    Set<GroupData> groups = new HashSet<>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements) {
       String name = element.getText();
@@ -72,4 +74,6 @@ public class GroupHelper extends BaseHelper {
     }
     return groups;
   }
+
+
 }

@@ -46,9 +46,9 @@ public class BaseHelper {
     }
   }
 
-  // выбрать запись
-  public void selectItem(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  // выбрать запись по идентификатору
+  public void selectItemById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void goToPage(String title) {
