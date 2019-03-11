@@ -1,11 +1,13 @@
 package jqa.maxim.starikov.addressbook.tests;
 
 import jqa.maxim.starikov.addressbook.models.GroupData;
-import org.testng.Assert;
+import jqa.maxim.starikov.addressbook.models.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ModificationGroupTest extends TestBase {
 
@@ -19,17 +21,14 @@ public class ModificationGroupTest extends TestBase {
 
   @Test
   public void testModificationGroup() {
-    Set<GroupData> before = app.getGroupHelper().getGroupSet();
+    Groups before = app.getGroupHelper().getGroupSet();
     GroupData modifiedGroup = before.iterator().next();
-    GroupData newGroup = new GroupData().withId(modifiedGroup.getId()).withName("Измененная группа").withHeader("новый хедер").withFooter("новый футер");
+    GroupData newGroup = new GroupData()
+      .withId(modifiedGroup.getId()).withName("Измененная группа").withHeader("новый хедер").withFooter("новый футер");
     app.getGroupHelper().modifyGroup(newGroup);
-    Set<GroupData> after = app.getGroupHelper().getGroupSet();
-    Assert.assertEquals(after.size(), before.size());
-
-    before.remove(modifiedGroup);
-    before.add(newGroup);
-    Assert.assertEquals(after, before);
-
+    Groups after = app.getGroupHelper().getGroupSet();
+    assertEquals(after.size(), before.size());
+    assertThat(after, equalTo(before.without(modifiedGroup).withAdded(newGroup)));
   }
 
 

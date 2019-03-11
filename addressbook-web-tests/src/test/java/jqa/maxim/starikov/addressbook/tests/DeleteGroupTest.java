@@ -1,10 +1,13 @@
 package jqa.maxim.starikov.addressbook.tests;
 
 import jqa.maxim.starikov.addressbook.models.GroupData;
-import org.testng.Assert;
+import jqa.maxim.starikov.addressbook.models.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class DeleteGroupTest extends TestBase {
 
@@ -18,15 +21,12 @@ public class DeleteGroupTest extends TestBase {
 
   @Test
   public void testDeleteGroup() {
-    Set<GroupData> before = app.getGroupHelper().getGroupSet();
+    Groups before = app.getGroupHelper().getGroupSet();
     GroupData deletedGroup = before.iterator().next();
     app.getGroupHelper().deleteGroup(deletedGroup);
-    Set<GroupData> after = app.getGroupHelper().getGroupSet();
-    Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(deletedGroup);
-    Assert.assertEquals(before, after);
-
+    Groups after = app.getGroupHelper().getGroupSet();
+    assertEquals(after.size(), before.size() - 1);
+    assertThat(after, equalTo(before.without(deletedGroup)));
   }
 
 

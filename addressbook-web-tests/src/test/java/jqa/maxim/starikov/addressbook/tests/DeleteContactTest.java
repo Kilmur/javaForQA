@@ -1,11 +1,18 @@
 package jqa.maxim.starikov.addressbook.tests;
 
 import jqa.maxim.starikov.addressbook.models.ContactData;
+import jqa.maxim.starikov.addressbook.models.Contacts;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class DeleteContactTest extends TestBase {
 
@@ -19,14 +26,12 @@ public class DeleteContactTest extends TestBase {
 
   @Test
   public void testDeleteContact() {
-    Set<ContactData> before = app.getContactHelper().getContactSet();
+    Contacts before = app.getContactHelper().getContactSet();
     ContactData deletedContact = before.iterator().next();
     app.getContactHelper().deleteContact(deletedContact);
-    Set<ContactData> after = app.getContactHelper().getContactSet();
-    Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(deletedContact);
-    Assert.assertEquals(before, after);
+    Contacts after = app.getContactHelper().getContactSet();
+    assertEquals(after.size(), before.size() - 1);
+    assertThat(after, equalTo(before.without(deletedContact)));
   }
 
 

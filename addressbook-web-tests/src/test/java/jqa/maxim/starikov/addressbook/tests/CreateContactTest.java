@@ -1,23 +1,22 @@
 package jqa.maxim.starikov.addressbook.tests;
 
 import jqa.maxim.starikov.addressbook.models.ContactData;
-import org.testng.Assert;
+import jqa.maxim.starikov.addressbook.models.Contacts;
 import org.testng.annotations.*;
-import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CreateContactTest extends TestBase {
 
   @Test
   public void testCreateContact() {
-    Set<ContactData> before = app.getContactHelper().getContactSet();
+    Contacts before = app.getContactHelper().getContactSet();
     ContactData contact = new ContactData().withName("Ivan").withLastname("Ivanov");
     app.getContactHelper().createContact(contact);
-    Set<ContactData> after = app.getContactHelper().getContactSet();
-    Assert.assertEquals(after.size(), before.size() + 1);
-
-    contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-    before.add(contact);
-    Assert.assertEquals(after, before);
+    Contacts after = app.getContactHelper().getContactSet();
+    assertThat(after.size(), equalTo(before.size() + 1));
+    assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
   }
 
 }

@@ -1,6 +1,7 @@
 package jqa.maxim.starikov.addressbook.appmanager;
 
 import jqa.maxim.starikov.addressbook.models.GroupData;
+import jqa.maxim.starikov.addressbook.models.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -64,8 +65,8 @@ public class GroupHelper extends BaseHelper {
   }
 
 
-  public Set<GroupData> getGroupSet() {
-    Set<GroupData> groups = new HashSet<>();
+  public Groups getGroupSet() {
+    Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements) {
       String name = element.getText();

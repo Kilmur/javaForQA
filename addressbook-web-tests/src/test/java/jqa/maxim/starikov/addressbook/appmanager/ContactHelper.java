@@ -1,6 +1,7 @@
 package jqa.maxim.starikov.addressbook.appmanager;
 
 import jqa.maxim.starikov.addressbook.models.ContactData;
+import jqa.maxim.starikov.addressbook.models.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -63,8 +64,8 @@ public class ContactHelper extends BaseHelper {
   }
 
 
-  public Set<ContactData> getContactSet() {
-    Set<ContactData> contacts = new HashSet<>();
+  public Contacts getContactSet() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String lastName = element.findElement(By.xpath(".//td[2]")).getText();
