@@ -8,6 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ModificationContactTest extends TestBase {
 
   @BeforeMethod
@@ -24,8 +27,8 @@ public class ModificationContactTest extends TestBase {
     ContactData modifiedContact = before.iterator().next();
     ContactData newContact = new ContactData().withId(modifiedContact.getId()).withName("Petr").withLastname("Ivanov");
     app.getContactHelper().modifyContact(newContact);
+    assertThat(app.getContactHelper().getContactCount(), equalTo(before.size()));
     Contacts after = app.getContactHelper().getContactSet();
-    Assert.assertEquals(after.size(), before.size());
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(newContact)));
   }
 

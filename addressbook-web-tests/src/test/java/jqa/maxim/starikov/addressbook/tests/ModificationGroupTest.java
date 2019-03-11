@@ -26,8 +26,8 @@ public class ModificationGroupTest extends TestBase {
     GroupData newGroup = new GroupData()
       .withId(modifiedGroup.getId()).withName("Измененная группа").withHeader("новый хедер").withFooter("новый футер");
     app.getGroupHelper().modifyGroup(newGroup);
+    assertThat(app.getGroupHelper().getGroupCount(), equalTo(before.size()));
     Groups after = app.getGroupHelper().getGroupSet();
-    assertEquals(after.size(), before.size());
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(newGroup)));
   }
 
