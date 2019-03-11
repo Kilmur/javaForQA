@@ -6,11 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends BaseHelper {
+
+  private Contacts contactCache;
 
   public ContactHelper(WebDriver wd) {
     super(wd);
@@ -37,6 +37,7 @@ public class ContactHelper extends BaseHelper {
     click(By.linkText("add new"));
     fillContactForm(group);
     submitCreation();
+    contactCache = null;
     goToPage("home");
   }
 
@@ -45,6 +46,7 @@ public class ContactHelper extends BaseHelper {
     clickEdit(contact.getId());
     fillContactForm(contact);
     clickUpdate();
+    contactCache = null;
     goToPage("home");
   }
 
@@ -52,6 +54,7 @@ public class ContactHelper extends BaseHelper {
     selectItemById(contact.getId());
     clickDelete();
     getWD().switchTo().alert().accept();
+    contactCache = null;
     goToPage("home");
   }
 
@@ -65,14 +68,17 @@ public class ContactHelper extends BaseHelper {
 
 
   public Contacts getContactSet() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String lastName = element.findElement(By.xpath(".//td[2]")).getText();
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contacts.add(new ContactData().withId(id).withName(firstName).withLastname(lastName));
+      contactCache.add(new ContactData().withId(id).withName(firstName).withLastname(lastName));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 }
