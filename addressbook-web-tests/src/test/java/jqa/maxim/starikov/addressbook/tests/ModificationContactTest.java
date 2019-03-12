@@ -4,7 +4,6 @@ import jqa.maxim.starikov.addressbook.models.ContactData;
 import jqa.maxim.starikov.addressbook.models.Contacts;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

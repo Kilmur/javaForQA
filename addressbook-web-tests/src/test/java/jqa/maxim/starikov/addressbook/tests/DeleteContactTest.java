@@ -2,17 +2,11 @@ package jqa.maxim.starikov.addressbook.tests;
 
 import jqa.maxim.starikov.addressbook.models.ContactData;
 import jqa.maxim.starikov.addressbook.models.Contacts;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Set;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class DeleteContactTest extends TestBase {
 
