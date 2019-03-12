@@ -16,7 +16,8 @@ public class ContactSecondaryFieldsTest extends TestBase {
   public void ensurePreconditions() {
     app.getNavigationHelper().goToPage("home");
     if (!app.getContactHelper().isThereContact()) {
-      app.getContactHelper().createContact(new ContactData().withName("Ivan").withLastname("Ivanov"));
+      app.getContactHelper().createContact(new ContactData().withName("Ivan").withLastname("Ivanov").withAddress("Moscow")
+        .withEmail("eq@re.ru").withEmail2("123@eqwew.com").withPhoneMobile("903828312").withPhoneHome("3123-312"));
     }
   }
 

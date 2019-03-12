@@ -20,8 +20,12 @@ public class ContactHelper extends BaseHelper {
     fillField(By.name("firstname"), contactData.getName());
     fillField(By.name("lastname"), contactData.getLastname());
     fillField(By.name("address"), contactData.getAddress());
+    fillField(By.name("mobile"), contactData.getPhoneMobile());
+    fillField(By.name("home"), contactData.getPhoneHome());
+    fillField(By.name("work"), contactData.getPhoneWork());
     fillField(By.name("email"), contactData.getEmail());
-    fillField(By.name("mobile"), contactData.getPhoneHome());;
+    fillField(By.name("email2"), contactData.getEmail2());
+    fillField(By.name("email3"), contactData.getEmail3());
   }
 
   public void clickEdit(int id) {
@@ -33,9 +37,9 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void createContact(ContactData group) {
+  public void createContact(ContactData contact) {
     click(By.linkText("add new"));
-    fillContactForm(group);
+    fillContactForm(contact);
     submitCreation();
     contactCache = null;
     goToPage("home");
