@@ -26,6 +26,7 @@ public class ContactHelper extends BaseHelper {
     fillField(By.name("email"), contactData.getEmail());
     fillField(By.name("email2"), contactData.getEmail2());
     fillField(By.name("email3"), contactData.getEmail3());
+    attachFile(By.name("photo"), contactData.getPhoto());
   }
 
   public void clickEdit(int id) {

@@ -1,21 +1,30 @@
 package jqa.maxim.starikov.addressbook.models;
 
+import com.google.gson.annotations.Expose;
+
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
 
   private int id = Integer.MAX_VALUE;
+  @Expose
   private String name;
+  @Expose
   private String lastname;
+  @Expose
   private String address;
+  @Expose
   private String email;
   private String email2;
   private String email3;
   private String phoneHome;
+  @Expose
   private String phoneMobile;
   private String phoneWork;
   private String allPhones;
   private String allEmails;
+  private File photo;
   
 
   public int getId() {
@@ -123,6 +132,15 @@ public class ContactData {
 
   public ContactData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
+    return this;
+  }
+
+  public File getPhoto() {
+    return photo;
+  }
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
     return this;
   }
 
