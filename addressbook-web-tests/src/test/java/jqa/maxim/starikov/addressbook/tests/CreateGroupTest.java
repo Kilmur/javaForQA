@@ -54,6 +54,7 @@ public class CreateGroupTest extends TestBase {
     assertThat(app.getGroupHelper().getGroupCount(), equalTo(before.size() + 1));
     Groups after = app.getDbHelper().groups();
     assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
+    verifyGroupsListInUI();
   }
 
 
