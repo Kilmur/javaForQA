@@ -9,6 +9,8 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     implementation 'com.beust:jcommander:1.72'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'mysql:mysql-connector-java:8.0.15'
+    implementation 'org.hibernate:hibernate-core:5.4.1.Final'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 }
 

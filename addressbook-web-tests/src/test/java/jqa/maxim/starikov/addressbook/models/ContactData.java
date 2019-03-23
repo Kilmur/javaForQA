@@ -1,30 +1,55 @@
 package jqa.maxim.starikov.addressbook.models;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
 
+  @Id
   private int id = Integer.MAX_VALUE;
+
   @Expose
-  private String name;
+  @Column(name = "firstname")
+  private String name = "";
+
   @Expose
-  private String lastname;
+  private String lastname = "";
+
   @Expose
-  private String address;
+  @Type(type = "text")
+  private String address = "";
+
   @Expose
-  private String email;
-  private String email2;
-  private String email3;
-  private String phoneHome;
+  @Type(type = "text")
+  private String email = "";
+  @Type(type = "text")
+  private String email2 = "";
+  @Type(type = "text")
+  private String email3 = "";
+  @Column(name = "home")
+  @Type(type = "text")
+  private String phoneHome = "";
+
   @Expose
-  private String phoneMobile;
-  private String phoneWork;
+  @Column(name = "mobile")
+  @Type(type = "text")
+  private String phoneMobile = "";
+  @Column(name = "work")
+  @Type(type = "text")
+  private String phoneWork = "";
+  @Transient
   private String allPhones;
+  @Transient
   private String allEmails;
-  private File photo;
+
+  @Type(type = "text")
+  private String photo;
   
 
   public int getId() {
@@ -136,20 +161,30 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return photo;
+    if (photo != null) {
+      return new File(photo);
+    }
+    return null;
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
   @Override
   public String toString() {
     return "ContactData{" +
-      "id='" + id + '\'' +
+      "id=" + id +
       ", name='" + name + '\'' +
       ", lastname='" + lastname + '\'' +
+      ", address='" + address + '\'' +
+      ", email='" + email + '\'' +
+      ", email2='" + email2 + '\'' +
+      ", email3='" + email3 + '\'' +
+      ", phoneHome='" + phoneHome + '\'' +
+      ", phoneMobile='" + phoneMobile + '\'' +
+      ", phoneWork='" + phoneWork + '\'' +
       '}';
   }
 
@@ -160,11 +195,18 @@ public class ContactData {
     ContactData that = (ContactData) o;
     return id == that.id &&
       Objects.equals(name, that.name) &&
-      Objects.equals(lastname, that.lastname);
+      Objects.equals(lastname, that.lastname) &&
+      Objects.equals(address, that.address) &&
+      Objects.equals(email, that.email) &&
+      Objects.equals(email2, that.email2) &&
+      Objects.equals(email3, that.email3) &&
+      Objects.equals(phoneHome, that.phoneHome) &&
+      Objects.equals(phoneMobile, that.phoneMobile) &&
+      Objects.equals(phoneWork, that.phoneWork);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, lastname);
+    return Objects.hash(id, name, lastname, address, email, email2, email3, phoneHome, phoneMobile, phoneWork);
   }
 }
