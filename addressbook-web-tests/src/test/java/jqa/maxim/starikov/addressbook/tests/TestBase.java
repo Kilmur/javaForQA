@@ -85,4 +85,15 @@ public class TestBase {
     }
     return allGroupsBeforeCreate.iterator().next();
   }
+
+  public void deleteContactFromGroup(ContactData contact, GroupData group) {
+    app.getNavigationHelper().goToPage("home");
+    selectGroupForShowContacts(group);
+    app.getContactHelper().selectItemById(contact.getId());
+    app.getWD().findElement(By.name("remove")).click();
+  }
+
+  private void selectGroupForShowContacts(GroupData group) {
+    new Select(app.getWD().findElement(By.name("group"))).selectByValue(String.valueOf(group.getId()));
+  }
 }
