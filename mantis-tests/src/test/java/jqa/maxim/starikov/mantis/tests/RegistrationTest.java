@@ -4,7 +4,6 @@ import jqa.maxim.starikov.mantis.models.MailMessage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.lanwen.verbalregex.VerbalExpression;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -29,7 +28,7 @@ public class RegistrationTest extends TestBase {
     app.getRegistrationHelper().start(user, email);
      List<MailMessage> mailMessages = app.getMailHelper().waitForMail(2, 10000);
 //    List<MailMessage> mailMessages = app.getJamesHelper().waitForMail(user, password, 120000);
-    String confirmationLink = findConfirmationLink(mailMessages, email);
+    String confirmationLink = app.getMailHelper().findConfirmationLink(mailMessages, email);
     app.getRegistrationHelper().finish(confirmationLink, password);
     assertTrue(app.newSession().login(user, password));
   }
@@ -39,9 +38,5 @@ public class RegistrationTest extends TestBase {
     app.getMailHelper().stop();
   }
 
-  private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-    MailMessage mailMessage = mailMessages.stream().filter((m)-> m.to.equals(email)).findFirst().get();
-    VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
-    return regex.getText(mailMessage.text);
-  }
+
 }

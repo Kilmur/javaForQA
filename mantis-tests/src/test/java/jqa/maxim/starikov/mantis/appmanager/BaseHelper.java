@@ -17,7 +17,7 @@ public class BaseHelper {
     this.wd = app.getDriver();
   }
 
-  protected void fillField(By locator, String text) {
+  public void fillField(By locator, String text) {
     click(locator);
     if (text != null) {
       String existingText = wd.findElement(locator).getAttribute("value");
