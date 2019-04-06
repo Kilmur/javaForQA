@@ -1,7 +1,6 @@
 package jqa.maxim.starikov.mantis.tests;
 
 import jqa.maxim.starikov.mantis.models.MailMessage;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,12 +21,15 @@ public class RegistrationTest extends TestBase {
 
   @Test
   public void testRegistration() throws IOException, MessagingException {
-    String email = "user3@localhost";
-    String user = "user3";
-    app.getRegistrationHelper().start(user, email);
-    List<MailMessage> mailMessages = app.getMailHelper().waitForMail(2, 10000);
-    String confirmationLink = findConfirmationLink(mailMessages, email);
+    long now = System.currentTimeMillis();
+    String user = String.format("user%s", now);
     String password = "password";
+    String email = String.format("user%s@localhost.localdomain", now);
+//    app.getJamesHelper().createUser(user, password);
+    app.getRegistrationHelper().start(user, email);
+     List<MailMessage> mailMessages = app.getMailHelper().waitForMail(2, 10000);
+//    List<MailMessage> mailMessages = app.getJamesHelper().waitForMail(user, password, 120000);
+    String confirmationLink = findConfirmationLink(mailMessages, email);
     app.getRegistrationHelper().finish(confirmationLink, password);
     assertTrue(app.newSession().login(user, password));
   }

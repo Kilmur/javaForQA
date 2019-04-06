@@ -23,7 +23,7 @@ public class MailHelper {
   public List<MailMessage> waitForMail(int count, long timeout) throws MessagingException, IOException{
     long start = System.currentTimeMillis();
     while (System.currentTimeMillis() < start + timeout){
-      if (wiser.getMessages().size() >=count){
+      if (wiser.getMessages().size() >= count){
         return wiser.getMessages().stream().map(MailHelper::toModelMail).collect(Collectors.toList());
       }
       try {
